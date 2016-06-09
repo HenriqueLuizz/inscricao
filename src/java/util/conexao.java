@@ -18,23 +18,50 @@ public class conexao {
     //não precisa instanciar o objeto
     public static Connection getConexao()
     {
+        /*
+            Selecionar base de dados:
+            0 - Banco de dados Servidor
+            1 - Bando de Dados Local
+        */
+
+        int base = 1; 
         Connection conexao = null;
+
+        if (base == 0)
+        {
         String usuario = "postgres";
-        String senha = "gmsuzano";
+        String senha = "488606";
         String banco = "inscricoes";
-        
         try
          {
             Class.forName("org.postgresql.Driver");
             conexao = DriverManager.getConnection("jdbc:postgresql://192.168.0.3:5432/"+ banco, usuario, senha);
-            
-            return(conexao);
          }
          catch (Exception e)
          {
              e.printStackTrace();
              return null;
          }
+        }
+        else
+        {
+            if (base == 1){
+                String usuario = "postgres";
+                String senha = "488606";
+                String banco = "inscricoes";
+                try
+                {
+                    Class.forName("org.postgresql.Driver");
+                    conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+ banco, usuario, senha);
+                 }
+                 catch (Exception e)
+                 {
+                     e.printStackTrace();
+                     return null;
+                 }
+            }
+        }
+        return(conexao);
     }
 
     public static PreparedStatement prepareStatement(String SELECT_ALL) {

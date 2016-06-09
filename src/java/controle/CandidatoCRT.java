@@ -5,7 +5,6 @@
  */
 package controle;
 
-import dao.CadastrarDAO;
 import dao.CandidatoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Cadastrar;
 import modelo.Candidato;
 
 /**
@@ -49,7 +47,7 @@ public class CandidatoCRT extends HttpServlet {
                 case "Cadastrar":
                     try{
                         String status = null;
-                        Cadastrar cad = new Cadastrar();
+                        Candidato cad = new Candidato();
                         cad.setNuminscricao(request.getParameter("txtnuminscricao"));
                         cad.setNome(request.getParameter("txtnome"));
                         cad.setEndereco(request.getParameter("txtendereco"));
@@ -72,7 +70,7 @@ public class CandidatoCRT extends HttpServlet {
                         cad.setNotamat(Double.parseDouble(request.getParameter("txtnotamat")));
                         cad.setFreq(Integer.parseInt(request.getParameter("txtfreq")));   
                         //efetuar a gravação
-                        CadastrarDAO obj = new CadastrarDAO();
+                        CandidatoDAO obj = new CandidatoDAO();
                         if (obj.cadastrar(cad)){
                             status = "Sucesso";
                         }else{
