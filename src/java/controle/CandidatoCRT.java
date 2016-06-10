@@ -87,14 +87,14 @@ public class CandidatoCRT extends HttpServlet {
                     }
                     break;
                 //Listar Todos os Candidatos    
-                case "Listar" :
+                case "Geral" :
                     try{
                     //Criar objero CandidatoDAO
                     CandidatoDAO objDAO = new CandidatoDAO();
                     //Executar o método listar
                     ArrayList<Candidato> candidato = objDAO.listar();
                     //Add a lista no objeto para o jsp
-                    request.setAttribute("listaCliente",candidato);
+                    request.setAttribute("liscaCandidato",candidato);
                     //Encaminhar o request para o jsp
                     RequestDispatcher rd = request.getRequestDispatcher("listar.jsp");
                     rd.forward(request, response);
@@ -105,8 +105,25 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break;
+                case "Classificados" :
+                    try{
+                    //Criar objero CandidatoDAO
+                    CandidatoDAO objDAO = new CandidatoDAO();
+                    //Executar o método listar
+                    ArrayList<Candidato> candidato = objDAO.listarClassificados();
+                    //Add a lista no objeto para o jsp
+                    request.setAttribute("liscaCandidato",candidato);
+                    //Encaminhar o request para o jsp
+                    RequestDispatcher rd = request.getRequestDispatcher("listar.jsp");
+                    rd.forward(request, response);
+                    }
+                    catch(Exception e){
+                        request.setAttribute("erro",e);
+                        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                        rd.forward(request, response);
+                    }
+                    break;    
             }
-        
         }
         catch(Exception e){
             //

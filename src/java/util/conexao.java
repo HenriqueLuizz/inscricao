@@ -20,17 +20,15 @@ public class conexao {
     {
         /*
             Selecionar base de dados:
-            0 - Banco de dados Servidor
+            0 - Banco de Dados Servidor
             1 - Bando de Dados Local
         */
-
-        int base = 1; 
+        int base = 0; 
         Connection conexao = null;
-
         if (base == 0)
         {
         String usuario = "postgres";
-        String senha = "488606";
+        String senha = "gmsuzano";
         String banco = "inscricoes";
         try
          {

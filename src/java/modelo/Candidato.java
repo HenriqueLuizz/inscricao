@@ -10,6 +10,7 @@ package modelo;
  * @author usuario
  */
 public class Candidato {
+    private int id;
     private String numinscricao;
     private String nome;
     private String endereco;
@@ -31,6 +32,19 @@ public class Candidato {
     private double notaport;
     private double notamat;
     private int freq;
+    private int pontuacao;
+    private double questionario;
+    private int preclassificacao;
+    private int classificacao;
+    private int status;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNuminscricao() {
         return numinscricao;
@@ -199,11 +213,52 @@ public class Candidato {
     public void setFreq(int freq) {
         this.freq = freq;
     }
-    
+
+    public int getPontuacao() {
+        return pontuacao;
+    }
+
+    public void setPontuacao(int pontuacao) {
+        this.pontuacao = pontuacao;
+    }
+
+    public double getQuestionario() {
+        return questionario;
+    }
+
+    public void setQuestionario(double questionario) {
+        this.questionario = questionario;
+    }
+
+    public int getPreclassificacao() {
+        return preclassificacao;
+    }
+
+    public void setPreclassificacao(int preclassificacao) {
+        this.preclassificacao = preclassificacao;
+    }
+
+    public int getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(int classificacao) {
+        this.classificacao = classificacao;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public Candidato() {
     }
 
-    public Candidato(String numinscricao, String nome, String endereco, String num, String bairro, String cep, String rg, String referencia, String telfixo, String telcel, String telrecado, String datanasc, String sexo, String naturalidade, String nomemae, String nomepai, double renda, String feedback, double notaport, double notamat, int freq) {
+    public Candidato(int id, String numinscricao, String nome, String endereco, String num, String bairro, String cep, String rg, String referencia, String telfixo, String telcel, String telrecado, String datanasc, String sexo, String naturalidade, String nomemae, String nomepai, double renda, String feedback, double notaport, double notamat, int freq, int pontuacao, double questionario, int preclassificacao, int classificacao, int status) {
+        this.id = id;
         this.numinscricao = numinscricao;
         this.nome = nome;
         this.endereco = endereco;
@@ -225,6 +280,10 @@ public class Candidato {
         this.notaport = notaport;
         this.notamat = notamat;
         this.freq = freq;
+        this.pontuacao = pontuacao;
+        this.questionario = questionario;
+        this.preclassificacao = preclassificacao;
+        this.classificacao = classificacao;
+        this.status = status;
     }
-        
 }
