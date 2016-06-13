@@ -122,7 +122,61 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break;    
+                    break; 
+                case "Pedagogia" :
+                    try{
+                    //Criar objero CandidatoDAO
+                    CandidatoDAO objDAO = new CandidatoDAO();
+                    //Executar o método listar
+                    ArrayList<Candidato> candidato = objDAO.listarClassificados();
+                    //Add a lista no objeto para o jsp
+                    request.setAttribute("liscaCandidato",candidato);
+                    //Encaminhar o request para o jsp
+                    RequestDispatcher rd = request.getRequestDispatcher("listarPedagogia.jsp");
+                    rd.forward(request, response);
+                    }
+                    catch(Exception e){
+                        request.setAttribute("erro",e);
+                        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                        rd.forward(request, response);
+                    }
+                    break; 
+                case "Psico" :
+                    try{
+                    //Criar objero CandidatoDAO
+                    CandidatoDAO objDAO = new CandidatoDAO();
+                    //Executar o método listar
+                    ArrayList<Candidato> candidato = objDAO.listarClassificados();
+                    //Add a lista no objeto para o jsp
+                    request.setAttribute("liscaCandidato",candidato);
+                    //Encaminhar o request para o jsp
+                    RequestDispatcher rd = request.getRequestDispatcher("listarPsico.jsp");
+                    rd.forward(request, response);
+                    }
+                    catch(Exception e){
+                        request.setAttribute("erro",e);
+                        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                        rd.forward(request, response);
+                    }
+                    break; 
+                case "Social" :
+                    try{
+                    //Criar objero CandidatoDAO
+                    CandidatoDAO objDAO = new CandidatoDAO();
+                    //Executar o método listar
+                    ArrayList<Candidato> candidato = objDAO.listarClassificados();
+                    //Add a lista no objeto para o jsp
+                    request.setAttribute("liscaCandidato",candidato);
+                    //Encaminhar o request para o jsp
+                    RequestDispatcher rd = request.getRequestDispatcher("listarSocial.jsp");
+                    rd.forward(request, response);
+                    }
+                    catch(Exception e){
+                        request.setAttribute("erro",e);
+                        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                        rd.forward(request, response);
+                    }
+                    break;
             }
         }
         catch(Exception e){

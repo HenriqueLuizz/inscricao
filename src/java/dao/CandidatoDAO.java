@@ -27,7 +27,8 @@ public class CandidatoDAO extends conexao{
 "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 */    
     private static final String SELECT_ALL = "SELECT * FROM tbcandidato ORDER BY can_pontuacao DESC";
-    private static final String SELECT_CLASS = "SELECT * FROM tbcandidato ORDER BY can_pontuacao DESC LIMIT 500";
+    private static final String SELECT_CLASS = "SELECT * FROM tbcandidato ORDER BY can_pontuacao DESC LIMIT 400";
+    
     public boolean cadastrar(Candidato cad) throws SQLException{
         //conectar ao banco
     Connection con = null;
