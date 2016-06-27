@@ -33,11 +33,13 @@
             table.testgrid td, table.testgrid th { padding: 5px; border: 1px solid #E0E0E0; }
             table.testgrid th { background: #E5E5E5; text-align: left; }
             input.invalid { background: red; color: #FDFDFD; }
+            .cabecalho{background-color: #E5E5E5; color: #548dc4; padding : 10px 5px 10px 5px}
         </style>
         <script>
             window.onload = function() {
                 // this approach is interesting if you need to dynamically create data in Javascript
                 var metadata = [];
+                metadata.push({ name: "editar", label: "Editar", datatype: "string", editable: false});
                 metadata.push({ name: "classificacao", label: "Classificação", datatype: "integer", editable: false});
                 metadata.push({ name: "inscricao", label: "Inscrição", datatype: "integer", editable: false});
                 metadata.push({ name: "nome", label: "Nome", datatype: "string", editable: false});
@@ -56,10 +58,23 @@
                 <%
                     for(Candidato c: listaCandidato){
                 %>
-                data.push({id: 1, values: {"classificacao":"<%= c.getClassificacao() %>","inscricao":"<%= c.getNuminscricao() %>",
-                        "nome":"<%= c.getNome() %>","rg":"<%= c.getRg() %>","telfixo":"<%= c.getTelfixo() %>",
-                        "telcel":"<%= c.getTelcel() %>","telrec":"<%= c.getTelrecado() %>","mae":"<%= c.getNomemae() %>","pai":"<%= c.getNomepai() %>",
-                        "notaport":<%= c.getNotaport() %>,"notamat":<%= c.getNotamat() %>,"freq":<%= c.getFreq() %>,"pont":<%= c.getPontuacao() %>}});
+                data.push({id: 1, values:
+                {
+                        "editar":"<a href=\"CandidatoCRT?btn=Buscar&id=<%= c.getId() %>\"><img src=\"imagens/file_edit.png\" width=\"15px\" height=\"15px\"/></a>",
+                    
+                        "classificacao":"<%= c.getClassificacao() %>",
+                        "inscricao":"<%= c.getNuminscricao() %>",
+                        "nome":"<%= c.getNome() %>",
+                        "rg":"<%= c.getRg() %>",
+                        "telfixo":"<%= c.getTelfixo() %>",
+                        "telcel":"<%= c.getTelcel() %>",
+                        "telrec":"<%= c.getTelrecado() %>",
+                        "mae":"<%= c.getNomemae() %>",
+                        "pai":"<%= c.getNomepai() %>",
+                        "notaport":<%= c.getNotaport() %>,
+                        "notamat":<%= c.getNotamat() %>,
+                        "freq":<%= c.getFreq() %>,
+                        "pont":<%= c.getPontuacao() %>}});
                 <%
                     }
                 %>
@@ -78,6 +93,67 @@
     <body>
         <a href="index.html">Voltar</a>
         <h1>Lista de Candidatos</h1> 
-		<div id="tablecontent"></div>
+		<!--<div id="tablecontent"></div>-->
+    
+        <table>
+            <thead>
+                <tr>
+                    <th class="cabecalho">Editar</th>
+                    <th class="cabecalho">Classificação</th>
+                    <th class="cabecalho">Inscrição</th>
+                    <th class="cabecalho">Nome</th>
+                    <th class="cabecalho">RG</th>
+                    <th class="cabecalho">Nota Port.</th>
+                    <th class="cabecalho">Nota Mat.</th>
+                    <th class="cabecalho">Freq.</th>
+                    <th class="cabecalho">Pontuação</th>
+                    <th class="cabecalho">Questionario</th>
+                    <th class="cabecalho">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            <%
+                for (Candidato c : listaCandidato)
+                {
+            %>
+                    <tr id="<%= c.getId()%>">
+                        
+                        <td>
+                            <a href="CandidatoCRT?btn=Buscar&id=<%= c.getId()%>">
+                                <img src="imagens/file_edit.png" width="15px" height="15px"/>
+                            </a>
+                        </td>
+                        
+                        <td><%= c.getClassificacao()%></td>
+                        <td><%= c.getNuminscricao()%></td>
+                        <td><%= c.getNome()%></td>
+                        <td><%= c.getRg()%></td>
+                        <td><%= c.getNotaport()%></td>
+                        <td><%= c.getNotamat()%></td>
+                        <td><%= c.getFreq()%></td>
+                        <td><%= c.getPontuacao()%></td>
+                        <td><%= c.getQuestionario()%></td>
+
+                        <%
+                            String status;
+                            if (c.getStatus())
+                            {
+                                status = "Ativo";
+                            }
+                            else
+                            {
+                                status = "Desativado";
+                            }
+                        %>
+
+                        <td><%= status%></td>
+
+                    </tr>
+            <%
+                }
+            %>
+                    </tbody>
+                </table>
+    
     </body>
 </html>

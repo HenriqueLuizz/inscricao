@@ -17,18 +17,33 @@ import modelo.Candidato;
  */
 public class Classificar {
     // Para ordenar por numeros
-    public static ArrayList<Candidato> porPontuacao(ArrayList<Candidato> lista) {
-        Collections.sort(lista, new Comparator<Candidato>() {
-            @Override
-            public int compare(Candidato can1, Candidato can2) {
-                return Integer.toString((can1.getPontuacao())).compareTo(Integer.toString(can2.getPontuacao()));
+    public static ArrayList<Candidato> porPontuacao(ArrayList<Candidato> lista)
+    {
+        ArrayList<Candidato> resposta = new ArrayList<Candidato>();
+        
+        try
+        {
+            /*
+                posição do candidato na classificação
+            */
+            int i = 1;
+
+            for(Candidato can : lista)
+            {
+                can.setClassificacao(i);
+                i++;
+
+                resposta.add(can);
             }
-     });
-        int i = 1;
-        for(Candidato can : lista){
-            can.setClassificacao(i);
-            i = i+1;
+            
         }
-    return lista;
+        catch (Exception e)
+        {
+            System.out.print("Algo errado: " + e.getMessage());
+        }
+        
+        
+        
+        return resposta;
     }
 }

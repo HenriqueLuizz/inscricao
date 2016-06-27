@@ -29,6 +29,7 @@ public class CandidatoDAO extends conexao{
     private static final String SELECT_ALL = "SELECT * FROM tbcandidato ORDER BY can_pontuacao DESC";
     private static final String SELECT_ALL_NOME = "SELECT * FROM tbcandidato ORDER BY can_nome";
     private static final String SELECT_CLASS = "SELECT * FROM tbcandidato WHERE can_status = true ORDER BY can_pontuacao DESC LIMIT 400;";
+    private static final String SELECT_NOME = "SELECT * FROM organizar_nome ORDER BY can_nome ;";
     private static final String SELECT_CANDIDATO = "SELECT * FROM tbcandidato WHERE can_id = ?;";
     // private static String UPDATE_CANDIDATO = "UPDATE tbcandidato SET can_inscricao=?, can_nome=?, can_endereco=?, can_numero=?, can_bairro=?, can_cep=?, can_rg=?, can_pontoref=?, can_telefone1=?, can_telefone2=?, can_telefone3=?, can_datanasc=?, can_sexo=?, can_naturalidade=?, can_nomepai=?, can_nomemae=?, can_renda=?, can_notaport=?, can_notamat=?, can_freq=?, can_questionario=?, can_status=? WHERE can_id = ?;";
     
@@ -75,49 +76,62 @@ public class CandidatoDAO extends conexao{
         }
     }
     
-    public ArrayList<Candidato> listar() throws SQLException {
+    public ArrayList<Candidato> listar()
+    {
         //Cria um array de obj Candidato
         ArrayList<Candidato> listaCandidato = new ArrayList<Candidato>();
         //Conexão
         Connection con = conexao.getConexao();
         //Criar comando SQL
-        PreparedStatement pstmt = con.prepareStatement(SELECT_ALL);
+        PreparedStatement pstmt = null;
         //Executa
-        ResultSet rs = pstmt.executeQuery();
+        ResultSet rs = null;
         
-        while(rs.next()){
-            //A cada loop
-            Candidato objCandidato = new Candidato();
-            objCandidato.setId(rs.getInt("can_id"));
-            objCandidato.setNuminscricao(rs.getString("can_inscricao"));
-            objCandidato.setNome(rs.getString("can_nome"));
-            objCandidato.setEndereco(rs.getString("can_endereco"));
-            objCandidato.setNum(rs.getString("can_numero"));
-            objCandidato.setBairro(rs.getString("can_bairro"));
-            objCandidato.setCep(rs.getString("can_cep"));
-            objCandidato.setRg(rs.getString("can_rg"));
-            objCandidato.setReferencia(rs.getString("can_pontoref"));
-            objCandidato.setTelfixo(rs.getString("can_telefone1"));
-            objCandidato.setTelcel(rs.getString("can_telefone2"));
-            objCandidato.setTelrecado(rs.getString("can_telefone3"));
-            objCandidato.setDatanasc(rs.getString("can_datanasc"));
-            objCandidato.setSexo(rs.getString("can_sexo"));
-            objCandidato.setNaturalidade(rs.getString("can_naturalidade"));
-            objCandidato.setNomepai(rs.getString("can_nomepai"));
-            objCandidato.setNomemae(rs.getString("can_nomemae"));
-            objCandidato.setRenda(rs.getDouble("can_renda"));
-            objCandidato.setNotaport(rs.getDouble("can_notaport"));
-            objCandidato.setNotamat(rs.getDouble("can_notamat"));
-            objCandidato.setFreq(rs.getInt("can_freq"));
-            objCandidato.setPontuacao(rs.getInt("can_pontuacao"));
-            objCandidato.setQuestionario(rs.getInt("can_questionario"));
-            objCandidato.setPreclassificacao(rs.getInt("can_preclassificacao"));
-            objCandidato.setClassificacao(rs.getInt("can_classificacao"));
-            objCandidato.setStatus(rs.getBoolean("can_status"));
+        try
+        {
+            pstmt = con.prepareStatement(SELECT_ALL);
             
-            //add na lista
-            listaCandidato.add(objCandidato);
+            rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                //A cada loop
+                Candidato objCandidato = new Candidato();
+                objCandidato.setId(rs.getInt("can_id"));
+                objCandidato.setNuminscricao(rs.getString("can_inscricao"));
+                objCandidato.setNome(rs.getString("can_nome"));
+                objCandidato.setEndereco(rs.getString("can_endereco"));
+                objCandidato.setNum(rs.getString("can_numero"));
+                objCandidato.setBairro(rs.getString("can_bairro"));
+                objCandidato.setCep(rs.getString("can_cep"));
+                objCandidato.setRg(rs.getString("can_rg"));
+                objCandidato.setReferencia(rs.getString("can_pontoref"));
+                objCandidato.setTelfixo(rs.getString("can_telefone1"));
+                objCandidato.setTelcel(rs.getString("can_telefone2"));
+                objCandidato.setTelrecado(rs.getString("can_telefone3"));
+                objCandidato.setDatanasc(rs.getString("can_datanasc"));
+                objCandidato.setSexo(rs.getString("can_sexo"));
+                objCandidato.setNaturalidade(rs.getString("can_naturalidade"));
+                objCandidato.setNomepai(rs.getString("can_nomepai"));
+                objCandidato.setNomemae(rs.getString("can_nomemae"));
+                objCandidato.setRenda(rs.getDouble("can_renda"));
+                objCandidato.setNotaport(rs.getDouble("can_notaport"));
+                objCandidato.setNotamat(rs.getDouble("can_notamat"));
+                objCandidato.setFreq(rs.getInt("can_freq"));
+                objCandidato.setPontuacao(rs.getInt("can_pontuacao"));
+                objCandidato.setQuestionario(rs.getInt("can_questionario"));
+                objCandidato.setPreclassificacao(rs.getInt("can_preclassificacao"));
+                objCandidato.setClassificacao(rs.getInt("can_classificacao"));
+                objCandidato.setStatus(rs.getBoolean("can_status"));
+
+                //add na lista
+                listaCandidato.add(objCandidato);
+            }
         }
+        catch (Exception e)
+        {
+            e.getMessage();
+        }
+        
         return listaCandidato;
     }
     
@@ -212,6 +226,52 @@ public class CandidatoDAO extends conexao{
         return listaCandidato;
     }
     
+     public ArrayList<Candidato> listarClassificadosPorNome() throws SQLException {
+        //Cria um array de obj Candidato
+        ArrayList<Candidato> listaCandidato = new ArrayList<Candidato>();
+        //Conexão
+        Connection con = conexao.getConexao();
+        //Criar comando SQL
+        PreparedStatement pstmt = con.prepareStatement(SELECT_NOME);
+        //Executa
+        ResultSet rs = pstmt.executeQuery();
+        
+        while(rs.next()){
+            //A cada loop
+            Candidato objCandidato = new Candidato();
+            objCandidato.setId(rs.getInt("can_id"));
+            objCandidato.setNuminscricao(rs.getString("can_inscricao"));
+            objCandidato.setNome(rs.getString("can_nome"));
+            objCandidato.setEndereco(rs.getString("can_endereco"));
+            objCandidato.setNum(rs.getString("can_numero"));
+            objCandidato.setBairro(rs.getString("can_bairro"));
+            objCandidato.setCep(rs.getString("can_cep"));
+            objCandidato.setRg(rs.getString("can_rg"));
+            objCandidato.setReferencia(rs.getString("can_pontoref"));
+            objCandidato.setTelfixo(rs.getString("can_telefone1"));
+            objCandidato.setTelcel(rs.getString("can_telefone2"));
+            objCandidato.setTelrecado(rs.getString("can_telefone3"));
+            objCandidato.setDatanasc(rs.getString("can_datanasc"));
+            objCandidato.setSexo(rs.getString("can_sexo"));
+            objCandidato.setNaturalidade(rs.getString("can_naturalidade"));
+            objCandidato.setNomepai(rs.getString("can_nomepai"));
+            objCandidato.setNomemae(rs.getString("can_nomemae"));
+            objCandidato.setRenda(rs.getDouble("can_renda"));
+            objCandidato.setNotaport(rs.getDouble("can_notaport"));
+            objCandidato.setNotamat(rs.getDouble("can_notamat"));
+            objCandidato.setFreq(rs.getInt("can_freq"));
+            objCandidato.setPontuacao(rs.getInt("can_pontuacao"));
+            objCandidato.setQuestionario(rs.getInt("can_questionario"));
+            objCandidato.setPreclassificacao(rs.getInt("can_preclassificacao"));
+            objCandidato.setClassificacao(rs.getInt("can_classificacao"));
+            objCandidato.setStatus(rs.getBoolean("can_status"));
+            //add na lista
+            listaCandidato.add(objCandidato);
+        }
+        return listaCandidato;
+    }
+    
+    
     public Candidato buscar(Candidato can) throws SQLException {
         
         Connection con = conexao.getConexao(); //Abrir Conexão
@@ -301,15 +361,17 @@ public class CandidatoDAO extends conexao{
     con = conexao.getConexao();
         try
         {
-            for (int i = 0; i < cad.size() ; i++){
-            con.setAutoCommit(false);
-            String UPDATE_CLASSIFICACAO = "UPDATE tbcandidato SET can_pontuacao=? WHERE can_id = ?;";
-            PreparedStatement stCandidato = con.prepareStatement(UPDATE_CLASSIFICACAO);
-            stCandidato.setInt(1, cad.get(i).getPontuacao());    //can_pontuacao=?
-            stCandidato.setInt(2, cad.get(i).getId());           //can_id = ?
-            
-            stCandidato.execute();
-            con.commit();
+            for (Candidato obj : cad)
+            {
+                con.setAutoCommit(false);
+                String UPDATE_CLASSIFICACAO = "UPDATE tbcandidato SET can_preclassificacao=? WHERE can_id = ?;";
+                PreparedStatement stCandidato = con.prepareStatement(UPDATE_CLASSIFICACAO);
+                
+                stCandidato.setInt(1, obj.getClassificacao());    //can_pontuacao=?
+                stCandidato.setInt(2, obj.getId());           //can_id = ?
+
+                stCandidato.execute();
+                con.commit();
             }
 
             //retornando o sucesso

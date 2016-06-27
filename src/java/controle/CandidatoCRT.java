@@ -88,6 +88,7 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break;
+                    
                 case "Atualizar":
                     try{
                         String status1 = null;
@@ -133,6 +134,7 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break;
+                    
                 //Listar Todos os Candidatos    
                 case "Geral" :
                     try{
@@ -152,16 +154,21 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break;
+                    
                 case "Classificados" :
                     try{
                     //Criar objero CandidatoDAO
                     CandidatoDAO objDAO = new CandidatoDAO();
+                    
                     //Executar o método listar
                     ArrayList<Candidato> candidato = objDAO.listarClassificados();
+                    
                     //Add a lista no objeto para o jsp
                     request.setAttribute("liscaCandidato",candidato);
+                    
                     //Encaminhar o request para o jsp
                     RequestDispatcher rd = request.getRequestDispatcher("listar.jsp");
+                    
                     rd.forward(request, response);
                     }
                     catch(Exception e){
@@ -170,16 +177,21 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break; 
+                    
                 case "Pedagogico" :
                     try{
                     //Criar objero CandidatoDAO
                     CandidatoDAO objDAO = new CandidatoDAO();
+                    
                     //Executar o método listar
-                    ArrayList<Candidato> candidato = objDAO.listarClassificados();
+                    ArrayList<Candidato> candidato = objDAO.listarClassificadosPorNome();
+                    
                     //Add a lista no objeto para o jsp
                     request.setAttribute("liscaCandidato",candidato);
+                    
                     //Encaminhar o request para o jsp
-                    RequestDispatcher rd = request.getRequestDispatcher("listarPedagogia.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("listarPedagogico.jsp");
+                    
                     rd.forward(request, response);
                     }
                     catch(Exception e){
@@ -259,6 +271,7 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break;
+                    
                 case "Classificar" :
                     try{
                     //Criar objero CandidatoDAO

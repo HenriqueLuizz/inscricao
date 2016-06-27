@@ -27,8 +27,8 @@ public class conexao {
         Connection conexao = null;
         if (base == 0)
         {
-        String usuario = "postgres";
-        String senha = "gmsuzano";
+        String usuario = "Administrador";
+        String senha = "Admin@gms";
         String banco = "inscricoes";
         try
          {
