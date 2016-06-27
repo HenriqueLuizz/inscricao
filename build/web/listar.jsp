@@ -23,7 +23,8 @@
 	<script src="scripts/js/editablegrid_utils.js" ></script>
 	<script src="scripts/js/editablegrid_charts.js" ></script>
         <link rel="stylesheet" href="scripts/css/editablegrid.css" type="text/css" media="screen">
-	
+        <link href="scripts/css/index.css" rel='stylesheet' type='text/css' media="all" />
+        
         <style>
             body { font-family:'lucida grande', tahoma, verdana, arial, sans-serif; font-size:11px; }
             h1 { font-size: 15px; }
@@ -84,8 +85,13 @@
         <title>Lista Candidatos</title>
     </head>
     <body>
+        <div id="form-main">
+            <div id="form-div">
+                
         <a href="index.html">Voltar</a>
         <h1>Lista de Candidatos</h1> 
 		<div id="tablecontent"></div>
-    </body>
+            </div>
+        </div>
+            </body>
 </html>

@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Candidato;
+import util.Classificar;
+import util.Ordenar;
 
 /**
  *
@@ -86,6 +88,51 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break;
+                case "Atualizar":
+                    try{
+                        String status1 = null;
+                        Candidato cad = new Candidato();
+                        cad.setNuminscricao(request.getParameter("txtnuminscricao"));                       // Get Inscrção
+                        cad.setNome(request.getParameter("txtnome"));                                       // Get Nome
+                        cad.setEndereco(request.getParameter("txtendereco"));                               // Get Endereço
+                        cad.setNum(request.getParameter("txtnum"));                                         // Get Numero
+                        cad.setBairro(request.getParameter("txtbairro"));                                   // Get Bairro
+                        cad.setCep(request.getParameter("txtcep"));                                         // Get CEP
+                        cad.setRg(request.getParameter("txtrg"));                                           // Get RG
+                        cad.setReferencia(request.getParameter("txtreferencia"));                           // Get Referencia
+                        cad.setTelfixo(request.getParameter("txttelfixo"));                                 // Get Tel. Fixo
+                        cad.setTelcel(request.getParameter("txttelcel"));                                   // Get Tel. Celular
+                        cad.setTelrecado(request.getParameter("txttelrecado"));                             // Get Tel. Recado
+                        cad.setDatanasc(request.getParameter("txtdatanasc"));                               // Get Data de Nascimento
+                        cad.setSexo(request.getParameter("txtsexo"));                                       // Get Sexo
+                        cad.setNaturalidade(request.getParameter("txtnaturalidade"));                       // Get Naturalidade
+                        cad.setNomemae(request.getParameter("txtnomemae"));                                 // Get Nome Mãe
+                        cad.setNomepai(request.getParameter("txtnomepai"));                                 // Get Nome Pai
+                        cad.setRenda(Double.parseDouble(request.getParameter("txtrenda")));                 // Get Renda
+                        cad.setNotaport(Double.parseDouble(request.getParameter("txtnotaport")));           // Get Nota Portugues
+                        cad.setNotamat(Double.parseDouble(request.getParameter("txtnotamat")));             // Get Nota Matematica
+                        cad.setFreq(Integer.parseInt(request.getParameter("txtfreq")));                     // Get Frequencia
+                        cad.setQuestionario(Double.parseDouble(request.getParameter("txtquestionario")));   // Get Questionario
+                        cad.setStatus(Boolean.parseBoolean(request.getParameter("cmbstatus")));             // Get Status
+                        cad.setId(Integer.parseInt(request.getParameter("txtid")));                         // Get Id
+
+                        
+                        CandidatoDAO obj = new CandidatoDAO(); //Criar obj CandidatoDAO
+                        if (obj.atualizar(cad)){        // Executar o metodo ATUALIZAR e verificar se o retorno é TRUE
+                            status1 = "Sucesso";
+                        }else{
+                            status1 = "Falha";
+                    }
+                    request.setAttribute("status",status1);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/CandidatoCRT?btn=Listar");
+                    dispatcher.forward(request, response);
+                    }
+                    catch(Exception e){
+                        request.setAttribute("erro",e);
+                        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                        rd.forward(request, response);
+                    }
+                    break;
                 //Listar Todos os Candidatos    
                 case "Geral" :
                     try{
@@ -123,7 +170,7 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break; 
-                case "Pedagogia" :
+                case "Pedagogico" :
                     try{
                     //Criar objero CandidatoDAO
                     CandidatoDAO objDAO = new CandidatoDAO();
@@ -177,6 +224,67 @@ public class CandidatoCRT extends HttpServlet {
                         rd.forward(request, response);
                     }
                     break;
+                //Listar Todos os Candidatos    
+                case "Listar" :
+                    try{
+                    //Criar objero CandidatoDAO
+                    CandidatoDAO objDAO = new CandidatoDAO();
+                    //Executar o método listar
+                    ArrayList<Candidato> candidato = objDAO.listarPorNome();
+                    //Add a lista no objeto para o jsp
+                    request.setAttribute("liscaCandidato",candidato);
+                    //Encaminhar o request para o jsp
+                    RequestDispatcher rd = request.getRequestDispatcher("alterar.jsp");
+                    rd.forward(request, response);
+                    }
+                    catch(Exception e){
+                        request.setAttribute("erro",e);
+                        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                        rd.forward(request, response);
+                    }
+                    break;
+                case "Buscar" :
+                    try{
+                        Candidato objcand = new Candidato();
+                        objcand.setId(Integer.parseInt(request.getParameter("id")));
+                        CandidatoDAO objDAO = new CandidatoDAO(); //Criar objero CandidatoDAO
+                        objcand = objDAO.buscar(objcand);//Executar o método listar
+                        request.setAttribute("Candidato",objcand);//Add a lista no objeto para o jsp
+                        RequestDispatcher rd = request.getRequestDispatcher("atualizarCandidato.jsp");//Encaminhar o request para o jsp
+                        rd.forward(request, response);
+                    }
+                    catch(Exception e){
+                        request.setAttribute("erro",e);
+                        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                        rd.forward(request, response);
+                    }
+                    break;
+                case "Classificar" :
+                    try{
+                    //Criar objero CandidatoDAO
+                    CandidatoDAO objDAO = new CandidatoDAO();
+                    //Executar o método listar
+                    ArrayList<Candidato> candidato = objDAO.listarPorNome();
+                    
+                    //Classificar Candidatos por Pontuação
+                    candidato = Classificar.porPontuacao(candidato);
+                    
+                    //Gravar Classificação 
+                    objDAO.atualizarClassificacao(candidato);
+                    
+                    //Add a lista no objeto para o jsp
+                    request.setAttribute("liscaCandidato",Ordenar.porClassificacao(candidato));
+                    //Encaminhar o request para o jsp
+                    RequestDispatcher rd = request.getRequestDispatcher("alterar.jsp");
+                    rd.forward(request, response);
+                    }
+                    catch(Exception e){
+                        request.setAttribute("erro",e);
+                        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+                        rd.forward(request, response);
+                    }
+                    break;
+
             }
         }
         catch(Exception e){

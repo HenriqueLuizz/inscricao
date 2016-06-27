@@ -36,7 +36,7 @@ public class Candidato {
     private double questionario;
     private int preclassificacao;
     private int classificacao;
-    private int status;
+    private boolean status;
 
     public int getId() {
         return id;
@@ -246,18 +246,18 @@ public class Candidato {
         this.classificacao = classificacao;
     }
 
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
     public Candidato() {
     }
 
-    public Candidato(int id, String numinscricao, String nome, String endereco, String num, String bairro, String cep, String rg, String referencia, String telfixo, String telcel, String telrecado, String datanasc, String sexo, String naturalidade, String nomemae, String nomepai, double renda, String feedback, double notaport, double notamat, int freq, int pontuacao, double questionario, int preclassificacao, int classificacao, int status) {
+    public Candidato(int id, String numinscricao, String nome, String endereco, String num, String bairro, String cep, String rg, String referencia, String telfixo, String telcel, String telrecado, String datanasc, String sexo, String naturalidade, String nomemae, String nomepai, double renda, String feedback, double notaport, double notamat, int freq, int pontuacao, double questionario, int preclassificacao, int classificacao, boolean status) {
         this.id = id;
         this.numinscricao = numinscricao;
         this.nome = nome;
