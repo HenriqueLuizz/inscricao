@@ -31,6 +31,7 @@ public class CandidatoDAO extends conexao{
     private static final String SELECT_CLASS = "SELECT * FROM tbcandidato WHERE can_status = true ORDER BY can_pontuacao DESC LIMIT 400;";
     private static final String SELECT_NOME = "SELECT * FROM organizar_nome ORDER BY can_nome ;";
     private static final String SELECT_CANDIDATO = "SELECT * FROM tbcandidato WHERE can_id = ?;";
+    private static final String BUSCAR_REGISTRO = "SELECT can_id, can_inscricao, can_nome FROM tbcandidato WHERE can_inscricao LIKE ? OR can_nome LIKE ? ORDER BY can_nome ;";
     // private static String UPDATE_CANDIDATO = "UPDATE tbcandidato SET can_inscricao=?, can_nome=?, can_endereco=?, can_numero=?, can_bairro=?, can_cep=?, can_rg=?, can_pontoref=?, can_telefone1=?, can_telefone2=?, can_telefone3=?, can_datanasc=?, can_sexo=?, can_naturalidade=?, can_nomepai=?, can_nomemae=?, can_renda=?, can_notaport=?, can_notamat=?, can_freq=?, can_questionario=?, can_status=? WHERE can_id = ?;";
     
     public boolean cadastrar(Candidato cad) throws SQLException{
@@ -308,6 +309,43 @@ public class CandidatoDAO extends conexao{
         can.setStatus(rs.getBoolean("can_status"));
     
         return can;
+    }
+    
+    public ArrayList<Candidato> buscarRegistro(String busca)
+    {
+        Connection con = null; //Abrir Conexão
+        PreparedStatement pstmt = null; //Criar comando SQL
+        
+        ArrayList<Candidato> lista = new ArrayList<>();
+        Candidato can ;
+        
+        try
+        {
+            con = conexao.getConexao();
+            pstmt = con.prepareStatement(BUSCAR_REGISTRO);
+            
+            pstmt.setString(1, busca);
+            pstmt.setString(2, busca);
+            
+            ResultSet rs = pstmt.executeQuery(); //Executar comando SQL
+            
+            while(rs.next())
+            {
+                can = new Candidato();
+            
+                can.setId(rs.getInt("can_id"));
+                can.setNuminscricao(rs.getString("can_inscricao"));
+                can.setNome(rs.getString("can_nome"));
+
+                lista.add(can);
+            }
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+        }
+        
+        return lista;
     }
 
     public boolean atualizar(Candidato cad) throws SQLException{

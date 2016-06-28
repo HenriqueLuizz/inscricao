@@ -11,66 +11,97 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!--  <link href="scripts/css/index.css" rel='stylesheet' type='text/css' media="all" />-->
         <link href="scripts/css/index2.css" rel='stylesheet' type='text/css' media="all" />
+        <script src="scripts/js/jquery.js"></script>
+        <script src="index.js"></script>
 
     </head>
     <body>
-        <div>
-            <h1>Lista de Classificados </h1>
-            <h3>Ingresso Guarda Mirim de Suzano - 2017</h3>
-        </div>
-            
-        <div id="form-main">
-            
-            <div id="form-div">
-                
-                <form class="form" id="form1" action="CandidatoCRT">
-                    
-                    <div class="submit">
-                        <input type="submit" value="Classificados" name="btn" id="button-blue"/>
-                        <div class="ease"></div>
-                    </div>
-                    
-                    <p></p>
-                    
-                    <div class="submit">
-                        <input type="submit" value="Pedagogico" name="btn" id="button-blue"/>
-                        <div class="ease"></div>
-                    </div>
-                    
-                    <p></p>
-                    
-                    <div class="submit">
-                        <input type="submit" value="Psico" name="btn" id="button-blue"/>
-                        <div class="ease"></div>
-                    </div>
-                    <p></p>
-                    <div class="submit">
-                        <input type="submit" value="Social" name="btn" id="button-blue"/>
-                        <div class="ease"></div>
-                    </div>
-                    
-                    <p></p>
-                    
-                    <div class="submit">
-                        <input type="submit" value="Geral" name="btn" id="button-blue"/>
-                        <div class="ease"></div>
-                    </div>
-                    
-                    <p></p>
-                    
-                    <div class="submit">
-                        <input type="submit" value="Listar" name="btn" id="button-blue"/>
-                        <div class="ease"></div>
-                    </div>
-                    
-                    <p></p>
-                    
-                    <div class="submit">
-                        <a id="submit" href="cadastro.jsp"><h4>Cadastrar</h4></a>
-                    </div>
-                </form>
-                
+	<div id="conteudo">
+		
+            <div>
+		<h1>Lista de Classificados </h1>
+		<h3>Ingresso Guarda Mirim de Suzano - 2017</h3>
             </div>
+			
+            <section id="busca">
+			
+		<h4>Busca</h4>
+		
+		<div>
+                    <input id="cmp_busca" type="search">
+                    <input id="bt_busca" type="image" src="imagens/busca3-2.png" class="lupa">
+                    <input id="bt_limpa" type="image" src="imagens/replace2-2.png" class="lupa">
+                    
+                    <div id="msg"></div>
+                    
+                        <table id="listagem">
+                            <thead id="lista_cabecalho">
+                                
+                            </thead>
+                            
+                            <tbody id="lista_corpo">
+                                
+                            </tbody>
+                        </table>
+                    
+		</div>
+			
+            </section>
+            
+            <section id="menu_opcoes">
+			
+		<h4>Opções</h4>
+                
+		<nav>
+                    <form class="form" id="form1" action="CandidatoCRT">
+						
+			<ul>
+						
+                            <li>
+				<a class="button-blue" href="#">Listagem</a>
+								
+                                    <ul id="sub_menu">
+					<li class="submit">
+                                            <button value="Classificados" name="btn" class="button-blue">Classificados</button>
+					</li>
+									
+					<li class="submit">
+                                            <button type="submit" value="Pedagogico" name="btn" class="button-blue">Pedagógico</button>
+					</li>
+									
+					<li class="submit">
+                                            <button type="submit" value="Psico" name="btn" class="button-blue">Psico</button>
+					</li>
+									
+					<li class="submit">
+                                            <button type="submit" value="Social" name="btn" class="button-blue">Social</button>
+					</li>
+
+                                    </ul>
+								
+				</li>
+								
+				<li class="oculto">
+                                    <input type="submit" value="Geral" name="btn" class="button-blue"/>
+                                    <div class="ease"></div>
+				</li>
+							
+				<li class="oculto">
+                                    <input type="submit" value="Listar" name="btn" class="button-blue"/>
+                                    <div class="ease"></div>
+				</li>
+										
+				<li class="submit">
+                                    <a class="button-blue" href="cadastro.jsp">Cadastrar</a>
+				</li>
+							
+			</ul>
+						
+                    </form>
+
+		</nav>
+                
+            </section>
         </div>
     </body>
 </html>

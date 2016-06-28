@@ -1,5 +1,7 @@
 {
-    "elements": {},
+    "elements": {
+        "option": {}
+    },
     "attributes": {
         "href": {
             "context": "span"

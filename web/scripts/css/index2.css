@@ -1,10 +1,129 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 27/06/2016, 16:37:06
-    Author     : usuario
-*/
+/* document CSS */
 
+#conteudo
+{
+	width : 940px ;
+	margin : 0 auto ;
+}
+
+#menu_opcoes
+{
+	background-color : #DCDCDC ;
+	width : 250px ;
+	
+	font-family : Arial ;
+}
+
+#menu_opcoes a
+{
+	text-decoration : none ;
+}
+
+#menu_opcoes li
+{
+	text-decoration : none ;
+}
+
+#busca
+{
+	background-color : #DCDCDC ;
+	width : 250px ;
+	
+	font-family : Arial ;
+	
+	border-top-left-radius : 5px ;
+	border-top-right-radius : 5px ;
+}
+
+#busca h4
+{
+	margin : 10px ;
+}
+
+#busca input
+{
+	vertical-align : middle ;
+}
+
+#busca input[type=search]
+{
+	width : 180px ;
+	border-radius : 10px;
+	
+	margin-bottom : 3px ;
+	margin-left : 5px ;
+}
+
+#menu_opcoes li ul
+{
+	display : none ;
+}
+
+#menu_opcoes li:hover ul
+{
+	display : block ;
+}
+
+/*#menu_opcoes li li button:before
+{
+	content : '\272A' ;
+	padding-right : 3px ;
+}*/
+
+.button-blue
+{
+	text-transform : uppercase ;
+	
+	color : black ;
+	
+	height : 20px;
+	width : 170px;
+	
+}
+
+.submit
+{
+	text-decoration : none ;
+}
+
+.oculto
+{
+	display : none ;
+}
+
+button
+{
+	border : none ;
+	margin-top : 3px ;
+}
+
+h4
+{
+	margin-top : 5px ;
+}
+
+h1, h3
+{
+	text-align : center ;
+}
+
+h1
+{
+	border-bottom-style : solid ;
+}
+
+a
+{
+    text-decoration: none;
+    color : black ;
+}
+
+tr
+{
+    background-color: white ;
+}
+
+.esq
+{
+    margin-left: 15px ;
+}

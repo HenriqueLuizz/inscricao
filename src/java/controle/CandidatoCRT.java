@@ -5,6 +5,7 @@
  */
 package controle;
 
+import com.google.gson.Gson;
 import dao.CandidatoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,6 +40,8 @@ public class CandidatoCRT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
         try {
             /* TODO output your page here. You may use following sample code. */
             
@@ -87,7 +90,7 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break;
+                break;
                     
                 case "Atualizar":
                     try{
@@ -133,7 +136,7 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break;
+                break;
                     
                 //Listar Todos os Candidatos    
                 case "Geral" :
@@ -153,7 +156,7 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break;
+                break;
                     
                 case "Classificados" :
                     try{
@@ -176,7 +179,7 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break; 
+                break; 
                     
                 case "Pedagogico" :
                     try{
@@ -199,7 +202,8 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break; 
+                break; 
+                
                 case "Psico" :
                     try{
                     //Criar objero CandidatoDAO
@@ -217,7 +221,8 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break; 
+                break; 
+                    
                 case "Social" :
                     try{
                     //Criar objero CandidatoDAO
@@ -235,7 +240,7 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break;
+                break;
                 //Listar Todos os Candidatos    
                 case "Listar" :
                     try{
@@ -254,7 +259,8 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break;
+                break;
+                    
                 case "Buscar" :
                     try{
                         Candidato objcand = new Candidato();
@@ -270,7 +276,35 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break;
+                break;
+                
+                case "BuscarRegistro":
+                    String busca = "%" + request.getParameter("busca") + "%" ;
+                    
+                    ArrayList<Object> resposta ;
+                    Gson objGson ;
+                    
+                    if ("%%".equals(busca))
+                    {
+                        resposta = null;
+                        objGson = new Gson();
+                        
+                        out.print(objGson.toJson(resposta));
+                    }
+                    else
+                    {
+                        CandidatoDAO objBusca = new CandidatoDAO();
+
+                        resposta = new ArrayList<Object>();
+                        objGson = new Gson();
+
+                        ArrayList<Candidato> lista = objBusca.buscarRegistro(busca);
+
+                        resposta.add(lista);
+                        out.print(objGson.toJson(resposta));
+                    }
+                    
+                break;
                     
                 case "Classificar" :
                     try{
@@ -296,7 +330,7 @@ public class CandidatoCRT extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
                         rd.forward(request, response);
                     }
-                    break;
+                break;
 
             }
         }
